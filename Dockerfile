@@ -6,7 +6,7 @@ WORKDIR /src
 COPY API_Gateway/API_Gateway.csproj API_Gateway/
 COPY API_Gateway.Tests/API_Gateway.Tests.csproj API_Gateway.Tests/
 
-# Restaurer les dépendances
+# Restaurer les dï¿½pendances
 RUN dotnet restore API_Gateway/API_Gateway.csproj
 RUN dotnet restore API_Gateway.Tests/API_Gateway.Tests.csproj
 
@@ -20,7 +20,7 @@ RUN dotnet build -c Release -o /app/build
 WORKDIR /src/API_Gateway.Tests
 RUN dotnet build -c Release -o /app/build
 
-# Exécutez les tests
+# Exï¿½cutez les tests
 WORKDIR /src/API_Gateway.Tests
 RUN dotnet test --no-restore --verbosity normal
 
