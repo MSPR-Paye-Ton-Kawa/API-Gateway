@@ -36,9 +36,18 @@ jobs:
           docker build -t api_gateway:latest .
           
         # Étape pour OWASP Dependency-Check
-      - name: Run OWASP Dependency-Check
-        run: docker run --rm -v $(pwd):/src -e NVD_API_KEY=4fc852eb-bfe8-4fb1-af13-76eb2a2967e1 owasp/dependency-check --scan /src --format ALL
-      
+      - name: Depcheck
+        uses: dependency-check/Dependency-Check_Action@main
+        id: Depcheck
+        with:
+          project: 'test'
+          path: '.'
+          format: 'HTML'
+          out: 'reports' 
+          args: >
+            --failOnCVSS 7
+            --enableRetired
+
       - name: Login to DockerHub
         run: echo "${{ secrets.DOCKERHUB_TOKEN }}" | docker login -u "${{ secrets.DOCKERHUB_USERNAME }}" --password-stdin
 
