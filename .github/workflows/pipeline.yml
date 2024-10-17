@@ -35,6 +35,11 @@ jobs:
         run: |
           docker build -t api_gateway:latest .
           
+        # Étape pour OWASP Dependency-Check
+      - name: Run OWASP Dependency-Check
+        run: |
+          docker run --rm -v $(pwd):/src owasp/dependency-check --project "api_gateway" --scan /src --format "ALL"
+      
       - name: Login to DockerHub
         run: echo "${{ secrets.DOCKERHUB_TOKEN }}" | docker login -u "${{ secrets.DOCKERHUB_USERNAME }}" --password-stdin
 
